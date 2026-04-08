@@ -359,6 +359,20 @@ class filter_courseprofesores extends moodle_text_filter
             $html .= '</div>'; // End group.
         }
 
+        // Add footer link if enabled.
+        if (self::$settingscache['showparticipantslink']) {
+            $coursecontext = context_course::instance($course->id);
+            if (has_capability('moodle/course:viewparticipants', $coursecontext)) {
+                $participantsurl = new moodle_url('/user/index.php', ['id' => $course->id]);
+                $html .= '<div class="profesores-footer">';
+                $html .= '<a href="' . $participantsurl->out(false) . '" class="participants-link">';
+                $html .= '<i class="icon fa fa-users fa-fw" aria-hidden="true"></i> ';
+                $html .= get_string('viewparticipants', 'filter_courseprofesores');
+                $html .= '</a>';
+                $html .= '</div>';
+            }
+        }
+
         $html .= '</div>'; // End container.
 
         return $html;
