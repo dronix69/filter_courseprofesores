@@ -1,0 +1,197 @@
+/**
+ * Course Profesores filter styles.
+ *
+ * @package    filter_courseprofesores
+ * @copyright  2026 Daniel Ferrada
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+.filter-courseprofesores-container {
+    margin: 1rem 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.filter-courseprofesores-container .profesores-role-group {
+    margin-bottom: 1.5rem;
+}
+
+.filter-courseprofesores-container .profesores-role-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e9ecef;
+}
+
+.filter-courseprofesores-container .profesores-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
+.filter-courseprofesores-container .profesor-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: #fff;
+    border: 1px solid #e9ecef;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.filter-courseprofesores-container .profesor-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
+}
+
+.filter-courseprofesores-container .profesor-avatar {
+    flex-shrink: 0;
+}
+
+.filter-courseprofesores-container .profesor-avatar img.userpicture {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #e9ecef;
+}
+
+.filter-courseprofesores-container .profesor-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.filter-courseprofesores-container .profesor-name {
+    display: block;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #212529;
+    text-decoration: none;
+    margin-bottom: 0.25rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.filter-courseprofesores-container .profesor-name:hover {
+    color: #0f6cbf;
+    text-decoration: underline;
+}
+
+.filter-courseprofesores-container .profesor-details {
+    font-size: 0.8rem;
+    color: #6c757d;
+    margin-bottom: 0.5rem;
+}
+
+.filter-courseprofesores-container .profesor-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.filter-courseprofesores-container .profesor-action-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.8rem;
+    color: #0f6cbf;
+    text-decoration: none;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.25rem;
+    transition: background-color 0.2s ease;
+}
+
+.filter-courseprofesores-container .profesor-action-link:hover {
+    background-color: #e7f1ff;
+    text-decoration: none;
+    color: #0a58ca;
+}
+
+.filter-courseprofesores-container .profesor-action-link .icon {
+    font-size: 0.85rem;
+}
+
+.filter-courseprofesores-container .profesores-footer {
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #e9ecef;
+    text-align: center;
+}
+
+.filter-courseprofesores-container .participants-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.9rem;
+    color: #0f6cbf;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    border: 1px solid #0f6cbf;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.filter-courseprofesores-container .participants-link:hover {
+    background-color: #0f6cbf;
+    color: #fff;
+    text-decoration: none;
+}
+
+.filter-courseprofesores-container .participants-link .icon {
+    font-size: 1rem;
+}
+
+[dir="rtl"] .filter-courseprofesores-container .profesor-card {
+    flex-direction: row-reverse;
+}
+
+.filter-courseprofesores-container.display-style-list .profesores-list {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+}
+
+.filter-courseprofesores-container.display-style-list .profesor-card {
+    padding: 0.75rem;
+    border-radius: 0.375rem;
+}
+
+.filter-courseprofesores-container.display-style-compact .profesores-list {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.5rem;
+}
+
+.filter-courseprofesores-container.display-style-compact .profesor-card {
+    padding: 0.5rem;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.filter-courseprofesores-container.display-style-compact .profesor-avatar img.userpicture {
+    width: 40px;
+    height: 40px;
+}
+
+.filter-courseprofesores-container.display-style-compact .profesor-actions {
+    justify-content: center;
+}
+
+@media (max-width: 576px) {
+    .filter-courseprofesores-container .profesores-list {
+        grid-template-columns: 1fr;
+    }
+
+    .filter-courseprofesores-container .profesor-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .filter-courseprofesores-container .profesor-actions {
+        justify-content: center;
+    }
+}
