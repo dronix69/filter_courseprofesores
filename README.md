@@ -131,7 +131,7 @@ El filtro genera HTML con la siguiente estructura:
 ## Requisitos
 
 - Moodle 4.0 o superior
-- PHP 7.4 o superior
+- PHP 8.0 o superior
 
 ## Licencia
 
