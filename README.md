@@ -23,7 +23,7 @@ Simplemente escribe `{courseprofesores}` en cualquier parte del contenido de tu 
 
 1. Descarga el plugin o clónalo desde el repositorio:
    ```bash
-   git clone https://github.com/dronix69/moodle-filter_courseprofesores.git courseprofesores
+   git clone https://github.com/dronix69/filter_courseprofesores.git courseprofesores
    ```
 
 2. Coloca la carpeta `courseprofesores` en el directorio `filter` de tu Moodle:
