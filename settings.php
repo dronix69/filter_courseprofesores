@@ -67,17 +67,20 @@ if ($ADMIN->fulltree) {
         1
     ));
 
-    $roleoptions = [
-        'editingteacher' => get_string('editingteacher', 'moodle'),
-        'teacher' => get_string('teacher', 'moodle'),
-        'manager' => get_string('manager', 'moodle'),
-    ];
+    $roleoptions = array();
+    if ($roles = get_all_roles()) {
+        foreach ($roles as $role) {
+            if (in_array($role->shortname, array('editingteacher', 'teacher', 'manager'))) {
+                $roleoptions[$role->shortname] = role_get_name($role, context_system::instance());
+            }
+        }
+    }
 
     $settings->add(new admin_setting_configmulticheckbox(
         'filter_courseprofesores/rolesincluded',
         get_string('rolesincluded', 'filter_courseprofesores'),
         get_string('rolesincluded_desc', 'filter_courseprofesores'),
-        ['editingteacher' => 1, 'teacher' => 1, 'manager' => 1],
+        array('editingteacher' => 1, 'teacher' => 1, 'manager' => 1),
         $roleoptions
     ));
 

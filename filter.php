@@ -153,13 +153,13 @@ class filter_courseprofesores extends moodle_text_filter
 
         // Load roles once per request.
         if (self::$rolecache === null) {
-            self::$rolecache = $DB->get_records_menu('role', null, '', 'id, shortname, name');
+            self::$rolecache = get_all_roles();
         }
 
         $relevantroles = [];
-        foreach (self::$rolecache as $roleid => $shortname) {
-            if (!empty(self::$settingscache['rolesincluded'][$shortname])) {
-                $relevantroles[] = $roleid;
+        foreach (self::$rolecache as $role) {
+            if (!empty(self::$settingscache['rolesincluded'][$role->shortname])) {
+                $relevantroles[] = $role->id;
             }
         }
 
@@ -191,9 +191,10 @@ class filter_courseprofesores extends moodle_text_filter
             $roleshortname = $record->roleshortname;
 
             if (!isset($grouped[$roleshortname])) {
+                $role = self::$rolecache[$record->roleid];
                 $grouped[$roleshortname] = [
                     'shortname' => $roleshortname,
-                    'name' => $record->rolename,
+                    'name' => role_get_name($role, $coursecontext),
                     'sortorder' => $roleorder[$roleshortname] ?? (99 + $record->roleid),
                     'users' => [],
                 ];
