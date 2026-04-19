@@ -24,20 +24,20 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['courseprofesores:viewprofesores'] = 'Puede ver la lista de profesores en el curso';
+$string['displaystyle'] = 'Estilo de visualización';
+$string['displaystyle_cards'] = 'Tarjetas';
+$string['displaystyle_compact'] = 'Compacto';
+$string['displaystyle_list'] = 'Lista';
 $string['filtername'] = 'Profesores del Curso';
 $string['pluginname'] = 'Profesores del Curso';
-$string['courseprofesores:viewprofesores'] = 'Puede ver la lista de profesores en el curso';
 $string['privacy:metadata'] = 'El filtro Profesores del Curso no almacena datos personales. Solo lee datos de usuario existentes para mostrar los profesores del curso.';
-
 $string['role_editingteacher'] = '{$a}';
-$string['role_teacher'] = '{$a}';
 $string['role_manager'] = '{$a}';
-
-$string['viewprofile'] = 'Ver perfil';
+$string['role_teacher'] = '{$a}';
+$string['rolesincluded'] = 'Roles a incluir';
+$string['rolesincluded_desc'] = 'Seleccione qué roles del curso deben mostrarse como profesores.';
 $string['sendmessage'] = 'Enviar mensaje';
-$string['unreadmessages'] = 'Mensajes no leídos';
-$string['viewparticipants'] = 'Ver todos los participantes';
-
 $string['settingsheading'] = 'Configuración del filtro Profesores del Curso';
 $string['showavatars'] = 'Mostrar avatares';
 $string['showavatars_desc'] = 'Mostrar las imágenes de avatar de los profesores en la lista.';
@@ -49,9 +49,6 @@ $string['showmessagelink'] = 'Mostrar enlace de mensaje';
 $string['showmessagelink_desc'] = 'Mostrar un enlace directo para enviar un mensaje al profesor.';
 $string['showparticipantslink'] = 'Mostrar enlace de participantes';
 $string['showparticipantslink_desc'] = 'Mostrar un enlace a la página de participantes del curso.';
-$string['rolesincluded'] = 'Roles a incluir';
-$string['rolesincluded_desc'] = 'Seleccione qué roles del curso deben mostrarse como profesores.';
-$string['displaystyle'] = 'Estilo de visualización';
-$string['displaystyle_cards'] = 'Tarjetas';
-$string['displaystyle_list'] = 'Lista';
-$string['displaystyle_compact'] = 'Compacto';
+$string['unreadmessages'] = 'Mensajes no leídos';
+$string['viewparticipants'] = 'Ver todos los participantes';
+$string['viewprofile'] = 'Ver perfil';

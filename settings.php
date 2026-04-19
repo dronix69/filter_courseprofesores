@@ -25,7 +25,6 @@
 defined('MOODLE_INTERNAL') || die();
 
 if ($ADMIN->fulltree) {
-
     $settings->add(new admin_setting_heading(
         'filter_courseprofesores/generalsettings',
         get_string('settingsheading', 'filter_courseprofesores'),
@@ -67,10 +66,10 @@ if ($ADMIN->fulltree) {
         1
     ));
 
-    $roleoptions = array();
+    $roleoptions = [];
     if ($roles = get_all_roles()) {
         foreach ($roles as $role) {
-            if (in_array($role->shortname, array('editingteacher', 'teacher', 'manager'))) {
+            if (in_array($role->shortname, ['editingteacher', 'teacher', 'manager'])) {
                 $roleoptions[$role->shortname] = role_get_name($role, context_system::instance());
             }
         }
@@ -80,7 +79,7 @@ if ($ADMIN->fulltree) {
         'filter_courseprofesores/rolesincluded',
         get_string('rolesincluded', 'filter_courseprofesores'),
         get_string('rolesincluded_desc', 'filter_courseprofesores'),
-        array('editingteacher' => 1, 'teacher' => 1, 'manager' => 1),
+        ['editingteacher' => 1, 'teacher' => 1, 'manager' => 1],
         $roleoptions
     ));
 

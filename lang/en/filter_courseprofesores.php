@@ -24,20 +24,20 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['courseprofesores:viewprofesores'] = 'Can view the list of teachers in the course';
+$string['displaystyle'] = 'Display style';
+$string['displaystyle_cards'] = 'Cards';
+$string['displaystyle_compact'] = 'Compact';
+$string['displaystyle_list'] = 'List';
 $string['filtername'] = 'Course Profesores';
 $string['pluginname'] = 'Course Profesores';
-$string['courseprofesores:viewprofesores'] = 'Can view the list of teachers in the course';
 $string['privacy:metadata'] = 'The Course Profesores filter does not store any personal data. It only reads existing user data to display course profesores.';
-
 $string['role_editingteacher'] = '{$a}';
-$string['role_teacher'] = '{$a}';
 $string['role_manager'] = '{$a}';
-
-$string['viewprofile'] = 'View profile';
+$string['role_teacher'] = '{$a}';
+$string['rolesincluded'] = 'Roles to include';
+$string['rolesincluded_desc'] = 'Select which course roles should be displayed as profesores.';
 $string['sendmessage'] = 'Send message';
-$string['unreadmessages'] = 'Unread messages';
-$string['viewparticipants'] = 'View all participants';
-
 $string['settingsheading'] = 'Course Profesores Filter Settings';
 $string['showavatars'] = 'Show avatars';
 $string['showavatars_desc'] = 'Display profesor avatar images in the profesores list.';
@@ -49,9 +49,6 @@ $string['showmessagelink'] = 'Show message link';
 $string['showmessagelink_desc'] = 'Display a direct link to send a message to the profesor.';
 $string['showparticipantslink'] = 'Show participants link';
 $string['showparticipantslink_desc'] = 'Display a link to the course participants page.';
-$string['rolesincluded'] = 'Roles to include';
-$string['rolesincluded_desc'] = 'Select which course roles should be displayed as profesores.';
-$string['displaystyle'] = 'Display style';
-$string['displaystyle_cards'] = 'Cards';
-$string['displaystyle_list'] = 'List';
-$string['displaystyle_compact'] = 'Compact';
+$string['unreadmessages'] = 'Unread messages';
+$string['viewparticipants'] = 'View all participants';
+$string['viewprofile'] = 'View profile';

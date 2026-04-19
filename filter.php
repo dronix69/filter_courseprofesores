@@ -34,9 +34,7 @@ defined('MOODLE_INTERNAL') || die();
  * @copyright  2026 Daniel Ferrada
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class filter_courseprofesores extends moodle_text_filter
-{
-
+class filter_courseprofesores extends moodle_text_filter {
     /** @var array Request-level cache of profesores per course. */
     protected static $profesorescache = [];
 
@@ -49,24 +47,23 @@ class filter_courseprofesores extends moodle_text_filter
     /**
      * Load plugin settings into static cache.
      */
-    protected function load_settings()
-    {
+    protected function load_settings() {
         if (self::$settingscache !== null) {
             return;
         }
 
-        $rolesincluded_config = get_config('filter_courseprofesores', 'rolesincluded');
-        $roles_array = [];
-        if (!empty($rolesincluded_config)) {
-            $roles = explode(',', $rolesincluded_config);
+        $rolesincludedconfig = get_config('filter_courseprofesores', 'rolesincluded');
+        $rolesarray = [];
+        if (!empty($rolesincludedconfig)) {
+            $roles = explode(',', $rolesincludedconfig);
             foreach ($roles as $r) {
                 if (!empty($r)) {
-                    $roles_array[$r] = 1;
+                    $rolesarray[$r] = 1;
                 }
             }
         } else {
             // Default roles if nothing is configured.
-            $roles_array = ['editingteacher' => 1, 'teacher' => 1];
+            $rolesarray = ['editingteacher' => 1, 'teacher' => 1];
         }
 
         self::$settingscache = [
@@ -76,7 +73,7 @@ class filter_courseprofesores extends moodle_text_filter
             'showmessagelink' => get_config('filter_courseprofesores', 'showmessagelink') !== '0',
             'showparticipantslink' => get_config('filter_courseprofesores', 'showparticipantslink') !== '0',
             'displaystyle' => preg_replace('/[^a-z0-9_-]/i', '', get_config('filter_courseprofesores', 'displaystyle') ?: 'cards'),
-            'rolesincluded' => $roles_array,
+            'rolesincluded' => $rolesarray,
         ];
     }
 
@@ -87,20 +84,19 @@ class filter_courseprofesores extends moodle_text_filter
      * @param array $options Filter options.
      * @return string The filtered text.
      */
-    public function filter($text, array $options = [])
-    {
+    public function filter($text, array $options = []) {
         global $COURSE, $PAGE, $SITE;
 
         if (empty($text) || is_object($text)) {
             return $text;
         }
 
-        // Decode HTML entities before checking, in case the editor converted `{` and `}` to `&#123;` and `&#125;`
+        // Decode HTML entities before checking, in case the editor converted `{` and `}` to `&#123;` and `&#125;`.
         if (strpos($text, '{courseprofesores}') === false && strpos($text, '&#123;courseprofesores&#125;') === false) {
             return $text;
         }
 
-        // Ensure consistent tag format for later replacement
+        // Ensure consistent tag format for later replacement.
         $text = str_replace('&#123;courseprofesores&#125;', '{courseprofesores}', $text);
 
         $course = $COURSE ?? $SITE;
@@ -140,8 +136,7 @@ class filter_courseprofesores extends moodle_text_filter
      * @param context $coursecontext The course context.
      * @return array Array of profesores grouped by role.
      */
-    protected function get_course_profesores($courseid, $coursecontext)
-    {
+    protected function get_course_profesores($courseid, $coursecontext) {
         global $DB;
 
         $cachekey = $courseid . '-' . $coursecontext->id;
@@ -174,7 +169,7 @@ class filter_courseprofesores extends moodle_text_filter
         // If no teachers found in course context, check parent contexts (e.g. category or system) in bulk.
         if (empty($records)) {
             $parentcontextids = $coursecontext->get_parent_context_ids();
-            // $parentcontextids is [systemid, ..., categoryid, coursecontextid].
+            // Variable $parentcontextids is [systemid, ..., categoryid, coursecontextid].
             // We want to check from course upwards, excluding course itself.
             $parentcontextids = array_reverse($parentcontextids);
             array_shift($parentcontextids); // Remove the course context id.
@@ -232,11 +227,10 @@ class filter_courseprofesores extends moodle_text_filter
      * @param array $relevantroles Array of relevant role IDs.
      * @return array Array of profesor records.
      */
-    protected function get_profesores_from_context($context, $relevantroles)
-    {
+    protected function get_profesores_from_context($context, $relevantroles) {
         global $DB;
 
-        list($rolesql, $roleparams) = $DB->get_in_or_equal($relevantroles, SQL_PARAMS_NAMED);
+        [$rolesql, $roleparams] = $DB->get_in_or_equal($relevantroles, SQL_PARAMS_NAMED);
 
         $sql = "SELECT u.id, u.firstname, u.lastname, u.email, u.picture, u.imagealt,
                        u.username, u.department, u.institution,
@@ -261,12 +255,11 @@ class filter_courseprofesores extends moodle_text_filter
      * @param array $relevantroles Array of relevant role IDs.
      * @return array Array of records from the closest context that has teachers.
      */
-    protected function get_best_profesores_from_parents($parentcontextids, $relevantroles)
-    {
+    protected function get_best_profesores_from_parents($parentcontextids, $relevantroles) {
         global $DB;
 
-        list($ctxsql, $ctxparams) = $DB->get_in_or_equal($parentcontextids, SQL_PARAMS_NAMED);
-        list($rolesql, $roleparams) = $DB->get_in_or_equal($relevantroles, SQL_PARAMS_NAMED);
+        [$ctxsql, $ctxparams] = $DB->get_in_or_equal($parentcontextids, SQL_PARAMS_NAMED);
+        [$rolesql, $roleparams] = $DB->get_in_or_equal($relevantroles, SQL_PARAMS_NAMED);
 
         $sql = "SELECT ra.contextid, u.id, u.firstname, u.lastname, u.email, u.picture, u.imagealt,
                        u.username, u.department, u.institution,
@@ -312,8 +305,7 @@ class filter_courseprofesores extends moodle_text_filter
      * @param stdClass $course The course object.
      * @return string HTML output.
      */
-    protected function render_profesores($profesores, $course)
-    {
+    protected function render_profesores($profesores, $course) {
         global $USER, $PAGE, $DB;
 
         $this->load_settings();
@@ -346,7 +338,7 @@ class filter_courseprofesores extends moodle_text_filter
             }
 
             if (!empty($allprofesorids)) {
-                list($insql, $inparams) = $DB->get_in_or_equal($allprofesorids, SQL_PARAMS_NAMED, 'prof');
+                [$insql, $inparams] = $DB->get_in_or_equal($allprofesorids, SQL_PARAMS_NAMED, 'prof');
                 $sql = "SELECT mcm2.userid AS profesorid, COUNT(m.id) AS unreadcount
                           FROM {messages} m
                           JOIN {message_conversation_members} mcm1
@@ -396,7 +388,11 @@ class filter_courseprofesores extends moodle_text_filter
                 $html .= '<div class="profesor-card">';
 
                 if ($unreadcount > 0) {
-                    $html .= '<span class="profesor-unread-badge" title="' . get_string('unreadmessages', 'filter_courseprofesores') . '">' . $unreadcount . '</span>';
+                    $html .= '<div class="profesor-unread-indicator" title="' .
+                        get_string('unreadmessages', 'filter_courseprofesores') . '">';
+                    $html .= '<i class="icon fa fa-comment-o fa-fw" aria-hidden="true"></i>';
+                    $html .= '<span class="unread-count">' . $unreadcount . '</span>';
+                    $html .= '</div>';
                 }
 
                 if (self::$settingscache['showavatars']) {
@@ -407,7 +403,8 @@ class filter_courseprofesores extends moodle_text_filter
                     $pictureurl = $userpicture->get_url($PAGE)->out(false);
 
                     $html .= '<div class="profesor-avatar">';
-                    $html .= '<a href="' . $profileurl->out(false) . '" title="' . get_string('viewprofile', 'filter_courseprofesores') . '">';
+                    $html .= '<a href="' . $profileurl->out(false) . '" title="' .
+                        get_string('viewprofile', 'filter_courseprofesores') . '">';
                     $html .= '<img src="' . s($pictureurl) . '" alt="' . s($user->fullname) . '" class="userpicture" />';
                     $html .= '</a>';
                     $html .= '</div>';
@@ -435,7 +432,9 @@ class filter_courseprofesores extends moodle_text_filter
                         if (\core_message\api::can_send_message($USER->id, $user->id)) {
                             $messagelink = new moodle_url('/message/index.php', ['id' => $user->id]);
                             $html .= '<div class="profesor-actions">';
-                            $html .= '<a href="' . $messagelink->out(false) . '" class="profesor-action-link message-link" title="' . get_string('sendmessage', 'filter_courseprofesores') . '">';
+                            $html .= '<a href="' . $messagelink->out(false) .
+                                '" class="profesor-action-link message-link" title="' .
+                                get_string('sendmessage', 'filter_courseprofesores') . '">';
                             $html .= '<i class="icon fa fa-envelope fa-fw" aria-hidden="true"></i> ';
                             $html .= get_string('sendmessage', 'filter_courseprofesores');
                             $html .= '</a>';

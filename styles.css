@@ -68,22 +68,33 @@
     flex-shrink: 0;
 }
 
-.filter-courseprofesores-container .profesor-unread-badge {
+.filter-courseprofesores-container .profesor-unread-indicator {
     position: absolute;
     top: 0.5rem;
     right: 0.5rem;
-    background-color: #dc3545;
-    color: white;
-    font-size: 0.75rem;
-    font-weight: 700;
-    padding: 0.2rem 0.4rem;
-    border-radius: 1rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    z-index: 10;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 1.5rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    color: #d6140d;
+    z-index: 10;
+}
+
+.filter-courseprofesores-container .profesor-unread-indicator .icon {
+    font-size: 1.5rem;
+    margin: 0;
+    padding: 0;
+}
+
+.filter-courseprofesores-container .profesor-unread-indicator .unread-count {
+    position: absolute;
+    z-index: 1;
+    font-size: 0.85rem;
+    font-weight: 700;
+    top: 46%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .filter-courseprofesores-container .profesor-avatar img.userpicture {
@@ -184,9 +195,9 @@
     flex-direction: row-reverse;
 }
 
-[dir="rtl"] .filter-courseprofesores-container .profesor-unread-badge {
+[dir="rtl"] .filter-courseprofesores-container .profesor-unread-indicator {
     right: auto;
-    left: -0.5rem;
+    left: 0.5rem;
 }
 
 .filter-courseprofesores-container.display-style-list .profesores-list {

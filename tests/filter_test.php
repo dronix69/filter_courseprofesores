@@ -31,7 +31,6 @@ require_once($CFG->dirroot . '/filter/courseprofesores/filter.php');
  * @group      filter_courseprofesores
  */
 class filter_test extends \advanced_testcase {
-
     /** @var \filter_courseprofesores The filter instance. */
     protected $filter;
 
