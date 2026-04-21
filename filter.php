@@ -25,16 +25,8 @@
  * @copyright  2026 Daniel Ferrada
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-defined('MOODLE_INTERNAL') || die();
-
-/**
- * Course Profesores filter class.
- *
- * @copyright  2026 Daniel Ferrada
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-class filter_courseprofesores extends moodle_text_filter {
+class filter_courseprofesores extends moodle_text_filter
+{
     /** @var array Request-level cache of profesores per course. */
     protected static $profesorescache = [];
 
@@ -47,7 +39,8 @@ class filter_courseprofesores extends moodle_text_filter {
     /**
      * Load plugin settings into static cache.
      */
-    protected function load_settings() {
+    protected function load_settings()
+    {
         if (self::$settingscache !== null) {
             return;
         }
@@ -84,7 +77,8 @@ class filter_courseprofesores extends moodle_text_filter {
      * @param array $options Filter options.
      * @return string The filtered text.
      */
-    public function filter($text, array $options = []) {
+    public function filter($text, array $options = [])
+    {
         global $COURSE, $PAGE, $SITE;
 
         if (empty($text) || is_object($text)) {
@@ -136,7 +130,8 @@ class filter_courseprofesores extends moodle_text_filter {
      * @param context $coursecontext The course context.
      * @return array Array of profesores grouped by role.
      */
-    protected function get_course_profesores($courseid, $coursecontext) {
+    protected function get_course_profesores($courseid, $coursecontext)
+    {
         global $DB;
 
         $cachekey = $courseid . '-' . $coursecontext->id;
@@ -227,7 +222,8 @@ class filter_courseprofesores extends moodle_text_filter {
      * @param array $relevantroles Array of relevant role IDs.
      * @return array Array of profesor records.
      */
-    protected function get_profesores_from_context($context, $relevantroles) {
+    protected function get_profesores_from_context($context, $relevantroles)
+    {
         global $DB;
 
         [$rolesql, $roleparams] = $DB->get_in_or_equal($relevantroles, SQL_PARAMS_NAMED);
@@ -240,10 +236,10 @@ class filter_courseprofesores extends moodle_text_filter {
                   JOIN {role} r ON r.id = ra.roleid
                  WHERE ra.contextid = :contextid
                    AND ra.roleid $rolesql
-                   AND u.deleted = 0
+                   AND u.deleted = :deleted
               ORDER BY r.sortorder ASC, u.lastname ASC, u.firstname ASC";
 
-        $params = array_merge(['contextid' => $context->id], $roleparams);
+        $params = array_merge(['contextid' => $context->id, 'deleted' => 0], $roleparams);
 
         return $DB->get_records_sql($sql, $params);
     }
@@ -255,7 +251,8 @@ class filter_courseprofesores extends moodle_text_filter {
      * @param array $relevantroles Array of relevant role IDs.
      * @return array Array of records from the closest context that has teachers.
      */
-    protected function get_best_profesores_from_parents($parentcontextids, $relevantroles) {
+    protected function get_best_profesores_from_parents($parentcontextids, $relevantroles)
+    {
         global $DB;
 
         [$ctxsql, $ctxparams] = $DB->get_in_or_equal($parentcontextids, SQL_PARAMS_NAMED);
@@ -269,10 +266,10 @@ class filter_courseprofesores extends moodle_text_filter {
                   JOIN {role} r ON r.id = ra.roleid
                  WHERE ra.contextid $ctxsql
                    AND ra.roleid $rolesql
-                   AND u.deleted = 0
+                   AND u.deleted = :deleted
               ORDER BY r.sortorder ASC, u.lastname ASC, u.firstname ASC";
 
-        $params = array_merge($ctxparams, $roleparams);
+        $params = array_merge($ctxparams, $roleparams, ['deleted' => 0]);
         $allrecords = $DB->get_records_sql($sql, $params);
 
         if (empty($allrecords)) {
@@ -305,7 +302,8 @@ class filter_courseprofesores extends moodle_text_filter {
      * @param stdClass $course The course object.
      * @return string HTML output.
      */
-    protected function render_profesores($profesores, $course) {
+    protected function render_profesores($profesores, $course)
+    {
         global $USER, $PAGE, $DB;
 
         $this->load_settings();
@@ -354,8 +352,8 @@ class filter_courseprofesores extends moodle_text_filter {
                            )
                       GROUP BY mcm2.userid";
                 $params = array_merge($inparams, [
-                    'studentid'  => $USER->id,
-                    'senderid'   => $USER->id,
+                    'studentid' => $USER->id,
+                    'senderid' => $USER->id,
                     'readaction' => \core_message\api::MESSAGE_ACTION_READ,
                 ]);
                 $records = $DB->get_records_sql($sql, $params);
