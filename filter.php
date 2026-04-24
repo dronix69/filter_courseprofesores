@@ -39,8 +39,7 @@ class filter_courseprofesores extends moodle_text_filter
     /**
      * Load plugin settings into static cache.
      */
-    protected function load_settings()
-    {
+    protected function load_settings() {
         if (self::$settingscache !== null) {
             return;
         }
@@ -77,8 +76,7 @@ class filter_courseprofesores extends moodle_text_filter
      * @param array $options Filter options.
      * @return string The filtered text.
      */
-    public function filter($text, array $options = [])
-    {
+    public function filter($text, array $options = []) {
         global $COURSE, $PAGE, $SITE;
 
         if (empty($text) || is_object($text)) {
@@ -124,8 +122,7 @@ class filter_courseprofesores extends moodle_text_filter
      * @param context $coursecontext The course context.
      * @return array Array of profesores grouped by role.
      */
-    protected function get_course_profesores($courseid, $coursecontext)
-    {
+    protected function get_course_profesores($courseid, $coursecontext) {
         global $DB;
 
         $cachekey = $courseid . '-' . $coursecontext->id;
@@ -216,8 +213,7 @@ class filter_courseprofesores extends moodle_text_filter
      * @param array $relevantroles Array of relevant role IDs.
      * @return array Array of profesor records.
      */
-    protected function get_profesores_from_context($context, $relevantroles)
-    {
+    protected function get_profesores_from_context($context, $relevantroles) {
         global $DB;
 
         [$rolesql, $roleparams] = $DB->get_in_or_equal($relevantroles, SQL_PARAMS_NAMED);
@@ -245,8 +241,7 @@ class filter_courseprofesores extends moodle_text_filter
      * @param array $relevantroles Array of relevant role IDs.
      * @return array Array of records from the closest context that has teachers.
      */
-    protected function get_best_profesores_from_parents($parentcontextids, $relevantroles)
-    {
+    protected function get_best_profesores_from_parents($parentcontextids, $relevantroles) {
         global $DB;
 
         [$ctxsql, $ctxparams] = $DB->get_in_or_equal($parentcontextids, SQL_PARAMS_NAMED);
@@ -293,8 +288,7 @@ class filter_courseprofesores extends moodle_text_filter
      * @param stdClass $course The course object.
      * @return string HTML output.
      */
-    protected function render_profesores($profesores, $course)
-    {
+    protected function render_profesores($profesores, $course) {
         global $USER, $PAGE, $DB;
 
         $this->load_settings();
