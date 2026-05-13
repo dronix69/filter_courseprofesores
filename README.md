@@ -136,8 +136,12 @@ El filtro genera HTML con la siguiente estructura:
 
 ## Requisitos
 
-- Moodle 4.0 o superior
-- PHP 8.0 o superior
+- Moodle 4.5 o superior (versión 2.0.0+, arquitectura con namespace — compatible con Moodle 5.0+)
+- PHP 8.1 o superior
+
+> **Nota para Moodle 5.0+:** A partir de la versión 2.0.0, el plugin utiliza la nueva arquitectura
+> de filtros con namespace (`\filter_courseprofesores\text_filter`) conforme al estándar MDL-82427,
+> eliminando todas las advertencias de deprecación.
 
 ## Licencia
 
